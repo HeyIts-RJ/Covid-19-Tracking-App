@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/dashboard"
+        android:icon="@drawable/ic_dashboard"
+        android:title="@string/dashboard"
+        app:cnb_iconColor="@color/dashboard"/>
+    <item
+        android:id="@+id/live_map"
+        android:icon="@drawable/ic_live_map"
+        android:title="@string/live_map_view"
+        app:cnb_iconColor="@color/live_map_view"/>
+    <item
+        android:id="@+id/news"
+        android:icon="@drawable/ic_newspaper"
+        android:title="@string/news"
+        app:cnb_iconColor="@color/news" />
+    <item
+        android:id="@+id/user"
+        android:icon="@drawable/ic_user_profile"
+        android:title="@string/user"
+        app:cnb_iconColor="@color/user" />
+</menu>
