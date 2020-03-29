@@ -11,6 +11,71 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <SearchView
+        android:id="@+id/search_for_location_map"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:queryBackground="@android:color/white"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/bg_round_search"
+        android:elevation="16dp"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search Country"
+        app:layout_constraintEnd_toStartOf="@+id/maps_live_feed"
+        app:layout_constraintStart_toEndOf="@+id/maps_live_feed"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <LinearLayout
+        android:id="@+id/map_right_side_swipe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/gps_locaton_fab"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_for_location_map">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/realtime_covid_on_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:contentDescription="GPS Location"
+            android:src="@drawable/ic_virus"
+            app:backgroundTint="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/realtime_hospital_on_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#fff"
+            android:contentDescription="GPS Location"
+            android:src="@drawable/ic_healthcare_and_medical"
+            app:backgroundTint="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/realtime_quarantine_on_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:contentDescription="GPS Location"
+            android:src="@drawable/ic_warning"
+            app:backgroundTint="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </LinearLayout>
+
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/gps_locaton_fab"
         android:layout_width="wrap_content"

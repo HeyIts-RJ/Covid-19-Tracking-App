@@ -60,7 +60,9 @@ public class DashboardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        ((AppCompatActivity) getActivity()).getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_VISIBLE);
+//        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         return inflater.inflate(R.layout.fragment_dashboard, container, false);
     }
 }
