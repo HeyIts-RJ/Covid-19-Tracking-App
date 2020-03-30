@@ -44,9 +44,11 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -57,6 +59,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
 
@@ -71,6 +74,8 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
     SearchView searchView;
 
     MarkerOptions markerOptions;
+    List<Marker> markers = new ArrayList<Marker>();
+    List<Circle> markersCircle = new ArrayList<Circle>();
 
     private FloatingActionButton gpsLocationFAB;
     private FloatingActionButton realtimeCovidFAB;
@@ -140,6 +145,19 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
                 mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(2f));
             }
         });
+
+        realtimeQuarantineFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                markerOptions.visible(false);
+                for (int i = 0; i < markers.size(); ++i) {
+                    markers.get(i).setVisible(false);
+                    markersCircle.get(i).setVisible(false);
+                }
+            }
+        });
+
+
         return mView;
     }
 
@@ -278,28 +296,31 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
 
 //        Log.d(TAG, "Map Wala:" + covidCountry.get(0).getmCountryName());
         for (int i = 0; i < covidCountry.size(); i++) {
-            mGoogleMap.addMarker(markerOptions.
+            Marker marker = mGoogleMap.addMarker(markerOptions.
                     title(covidCountry.get(i).getmCountryName())
                     .position(new LatLng(covidCountry.get(i).getmLat(), covidCountry.get(i).getmLan()))
                     .snippet("Total Cases:" + covidCountry.get(i).getmTotalCases() +
                             "\nTotal Recovered:" + covidCountry.get(i).getmTotalRecovered() +
                             "\nTotal Deaths:" + covidCountry.get(i).getmTotalDeaths())
                     .icon(bitmapDescriptorFromVector(getContext())));
+            markers.add(marker);
 
             if (covidCountry.get(i).getmTotalCases() < 10000) {
 
-                mGoogleMap.addCircle(new CircleOptions()
+                Circle circle = mGoogleMap.addCircle(new CircleOptions()
                         .center(new LatLng(covidCountry.get(i).getmLat(), covidCountry.get(i).getmLan()))
                         .radius(covidCountry.get(i).getmTotalCases() * 100)
                         .strokeColor(Color.RED)
                         .fillColor(Color.argb(70, 255, 102, 102)));
+                markersCircle.add(circle);
 
             } else {
-                mGoogleMap.addCircle(new CircleOptions()
+                Circle circle = mGoogleMap.addCircle(new CircleOptions()
                         .center(new LatLng(covidCountry.get(i).getmLat(), covidCountry.get(i).getmLan()))
                         .radius(covidCountry.get(i).getmTotalCases() * 10)
                         .strokeColor(Color.RED)
                         .fillColor(Color.argb(70, 255, 102, 102)));
+                markersCircle.add(circle);
             }
         }
     }
