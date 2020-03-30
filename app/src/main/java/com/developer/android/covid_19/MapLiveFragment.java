@@ -4,11 +4,15 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -38,6 +42,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
@@ -275,9 +281,10 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
             mGoogleMap.addMarker(markerOptions.
                     title(covidCountry.get(i).getmCountryName())
                     .position(new LatLng(covidCountry.get(i).getmLat(), covidCountry.get(i).getmLan()))
-                    .snippet("Total Cases:"+covidCountry.get(i).getmTotalCases()+
-                            "\nTotal Recovered:"+covidCountry.get(i).getmTotalRecovered()+
-                            "\nTotal Deaths:"+covidCountry.get(i).getmTotalDeaths()));
+                    .snippet("Total Cases:" + covidCountry.get(i).getmTotalCases() +
+                            "\nTotal Recovered:" + covidCountry.get(i).getmTotalRecovered() +
+                            "\nTotal Deaths:" + covidCountry.get(i).getmTotalDeaths())
+                    .icon(bitmapDescriptorFromVector(getContext())));
 
             if (covidCountry.get(i).getmTotalCases() < 10000) {
 
@@ -353,6 +360,23 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
             getData();
             return null;
         }
+    }
+
+
+    private BitmapDescriptor bitmapDescriptorFromVector(Context context) {
+        Drawable background = ContextCompat.getDrawable(context, R.drawable.ic_covid_virus_icon);
+        background.setBounds(0, 0, background.getIntrinsicWidth(), background.getIntrinsicHeight());
+
+//        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorDrawableResourceId);
+
+//        vectorDrawable.setBounds(40, 20, vectorDrawable.getIntrinsicWidth() + 40, vectorDrawable.getIntrinsicHeight() + 20);
+        Bitmap bitmap = Bitmap.createBitmap(background.getIntrinsicWidth(), background.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+
+        background.draw(canvas);
+//        vectorDrawable.draw(canvas);
+
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
 }

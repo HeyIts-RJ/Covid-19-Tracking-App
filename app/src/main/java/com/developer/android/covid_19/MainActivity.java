@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-
 //    static public ArrayList<CovidCountry> covidCountry;
 
     private static final String TAG = MainActivity.class.getSimpleName();
