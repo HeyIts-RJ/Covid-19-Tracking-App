@@ -39,6 +39,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.developer.android.covid_19.country.CovidCountry;
+import com.developer.android.covid_19.country.CovidQuarinntine;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -72,6 +73,7 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
     View mView;
 
     ArrayList<CovidCountry> covidCountry;
+    ArrayList<CovidQuarinntine> covidQuarinntines;
 
     JSONArray jsonArray;
 
@@ -79,6 +81,7 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
 
     MarkerOptions markerOptions;
     List<Marker> markers = new ArrayList<Marker>();
+    List<Marker> quarintineMarkers = new ArrayList<Marker>();
     List<Circle> markersCircle = new ArrayList<Circle>();
 
     private FloatingActionButton gpsLocationFAB;
@@ -154,6 +157,7 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void onClick(View view) {
                 displayCovidWorldwideDataMarker();
+                hideQuarintineDataMarker();
                 mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(2f));
             }
         });
@@ -162,6 +166,9 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void onClick(View view) {
                 hideCovidWorldwideDataMarker();
+                displayQuarinitneDataMarker();
+                LatLng latLng=new LatLng(28.6141793,77.2022662);
+                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 5f));
             }
         });
 
@@ -209,6 +216,7 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
             public void onMapLoaded() {
                 mapPlotCovidMarker();
                 hideCovidWorldwideDataMarker();
+                hideQuarintineDataMarker();
                 Toast.makeText(getContext(), "Map is updated", Toast.LENGTH_SHORT).show();
             }
         });
@@ -229,6 +237,7 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
                 Manifest.permission.ACCESS_COARSE_LOCATION};
         if ( !manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
             buildAlertMessageNoGps();
+            initMap();
         }else{
             if (ContextCompat.checkSelfPermission(this.getContext(),
                     FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -356,7 +365,28 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
                 markersCircle.add(circle);
             }
         }
+
+        for (int i = 0; i < covidQuarinntines.size(); i++) {
+            Marker marker = mGoogleMap.addMarker(markerOptions.
+                    title(covidQuarinntines.get(i).getmDistrict())
+                    .position(new LatLng(covidQuarinntines.get(i).getmLat(), covidQuarinntines.get(i).getmLan()))
+                    .snippet(covidQuarinntines.get(i).getmCases() + "@" + "Total Cases")
+                    .icon(bitmapDescriptorFromVector(getContext())));
+            quarintineMarkers.add(marker);
+        }
+
     }
+
+//    private void getQuarinitineData(){
+//
+//        RequestQueue queue = Volley.newRequestQueue(getActivity());
+//
+//
+//
+//
+//        queue.add(stringRequest);
+//
+//    }
 
 
     private void getData() {
@@ -403,7 +433,46 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
                 Log.d("Error Response", error.toString());
             }
         });
+
+        covidQuarinntines = new ArrayList<>();
+
+        String url2 = "https://gokarunago19.herokuapp.com/data";
+
+        StringRequest stringRequest2 = new StringRequest(Request.Method.GET, url2, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                if (response != null) {
+                    Log.e(TAG, "Response:" + response);
+
+                    try {
+                        jsonArray = new JSONArray(response);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject data = jsonArray.getJSONObject(i);
+                            Log.d(TAG, "onResponse2:" + data.getString("District") + data.getInt("Cases")+data.getDouble("Latitude"));
+                            covidQuarinntines.add(new CovidQuarinntine(data.getString("District"),
+                                    data.getInt("Cases"),
+                                    data.getDouble("Latitude"),
+                                    data.getDouble("Longitude")
+                            ));
+//                            Log.d(TAG,"Map Wala:"+covidCountry.get(i).getmLan());
+                        }
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error Response", error.toString());
+            }
+        });
+
         queue.add(stringRequest);
+        queue.add(stringRequest2);
 
 
     }
@@ -414,6 +483,7 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
         @Override
         protected Void doInBackground(Void... voids) {
             getData();
+//            getQuarinitineData();
             return null;
         }
     }
@@ -449,6 +519,19 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
             markersCircle.get(i).setVisible(false);
         }
     }
+
+    public void displayQuarinitneDataMarker() {
+        for (int i = 0; i < quarintineMarkers.size(); ++i) {
+            quarintineMarkers.get(i).setVisible(true);
+        }
+    }
+
+    public void hideQuarintineDataMarker() {
+        for (int i = 0; i < quarintineMarkers.size(); ++i) {
+            quarintineMarkers.get(i).setVisible(false);
+        }
+    }
+
 
     private void buildAlertMessageNoGps() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
