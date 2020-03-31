@@ -3,6 +3,7 @@ package com.developer.android.covid_19;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -142,6 +143,7 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
         realtimeCovidFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                displayCovidWorldwideDataMarker();
                 mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(2f));
             }
         });
@@ -149,11 +151,7 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
         realtimeQuarantineFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                markerOptions.visible(false);
-                for (int i = 0; i < markers.size(); ++i) {
-                    markers.get(i).setVisible(false);
-                    markersCircle.get(i).setVisible(false);
-                }
+                hideCovidWorldwideDataMarker();
             }
         });
 
@@ -200,6 +198,7 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void onMapLoaded() {
                 mapPlotCovidMarker();
+                hideCovidWorldwideDataMarker();
                 Toast.makeText(getContext(), "Map is updated", Toast.LENGTH_SHORT).show();
             }
         });
@@ -294,7 +293,27 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
 
     private void mapPlotCovidMarker() {
 
-        mGoogleMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(this.getContext()));
+        mGoogleMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(getContext(), (AppCompatActivity) getActivity()));
+        mGoogleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker infoMarker) {
+
+                for (int i = 0; i < markers.size(); ++i) {
+                    if (markers.get(i).equals(infoMarker)) {
+                        Intent intent = new Intent(getActivity(), CompleteData.class);
+                        intent.putExtra("country_flag", covidCountry.get(i).getmFlag());
+                        intent.putExtra("country_name", covidCountry.get(i).getmCountryName());
+                        intent.putExtra("total_deaths", covidCountry.get(i).getmTotalDeaths());
+                        intent.putExtra("total_cases", covidCountry.get(i).getmTotalCases());
+                        intent.putExtra("total_recover", covidCountry.get(i).getmTotalRecovered());
+                        intent.putExtra("today_deaths", covidCountry.get(i).getmTodayDeaths());
+                        intent.putExtra("today_cases", covidCountry.get(i).getmTodayCases());
+                        startActivity(intent);
+
+                    }
+                }
+            }
+        });
 
 //        Log.d(TAG, "Map Wala:" + covidCountry.get(0).getmCountryName());
 
@@ -302,9 +321,7 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
             Marker marker = mGoogleMap.addMarker(markerOptions.
                     title(covidCountry.get(i).getmCountryName())
                     .position(new LatLng(covidCountry.get(i).getmLat(), covidCountry.get(i).getmLan()))
-                    .snippet("Total Cases:" + covidCountry.get(i).getmTotalCases() +
-                            "\nTotal Recovered:" + covidCountry.get(i).getmTotalRecovered() +
-                            "\nTotal Deaths:" + covidCountry.get(i).getmTotalDeaths())
+                    .snippet(covidCountry.get(i).getmTotalCases() + "@" + covidCountry.get(i).getmTotalDeaths())
                     .icon(bitmapDescriptorFromVector(getContext())));
             markers.add(marker);
 
@@ -354,7 +371,9 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
                                     data.getJSONObject("countryInfo").getInt("long"),
                                     data.getInt("cases"),
                                     data.getInt("deaths"),
-                                    data.getInt("recovered")
+                                    data.getInt("recovered"),
+                                    data.getInt("todayCases"),
+                                    data.getInt("todayDeaths")
                             ));
 //                            Log.d(TAG,"Map Wala:"+covidCountry.get(i).getmLan());
                         }
@@ -401,6 +420,21 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
 //        vectorDrawable.draw(canvas);
 
         return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
+
+
+    public void displayCovidWorldwideDataMarker() {
+        for (int i = 0; i < markers.size(); ++i) {
+            markers.get(i).setVisible(true);
+            markersCircle.get(i).setVisible(true);
+        }
+    }
+
+    public void hideCovidWorldwideDataMarker() {
+        for (int i = 0; i < markers.size(); ++i) {
+            markers.get(i).setVisible(false);
+            markersCircle.get(i).setVisible(false);
+        }
     }
 
 }

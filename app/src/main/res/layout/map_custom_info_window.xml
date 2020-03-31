@@ -14,13 +14,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:background="@color/news" />
-
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center">
@@ -43,7 +38,7 @@
                     android:id="@+id/linearLayout3"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="4dp"
                     android:gravity="center"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -59,11 +54,11 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:id="@+id/reported_case_display_marker"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_medium"
                         android:text="9322"
-                        android:id="@+id/reported_case_display_marker"
                         android:textColor="@color/reported_case" />
                 </LinearLayout>
 
@@ -71,7 +66,7 @@
                     android:id="@+id/linearLayout4"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="4dp"
                     android:gravity="center"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -87,6 +82,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:id="@+id/death_case_display_marker"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_medium"

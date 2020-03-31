@@ -6,20 +6,41 @@
     android:layout_height="match_parent"
     android:background="#ededed"
     tools:context=".CompleteData">
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/death_case"
+        android:paddingRight="30dp"
         android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/main_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_back_black_24dp"
+                android:tint="@android:color/white" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center_horizontal"
+                android:text="Country Stats"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -37,10 +58,10 @@
 
         <ImageView
             android:id="@+id/country_flag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/round_flag_icon" />
+            android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/country_name"
@@ -56,7 +77,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
+            android:layout_marginRight="10dp"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -80,20 +103,36 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_bold"
-                        android:text="88,000"
                         android:textColor="@color/reported_case"
                         android:textSize="20sp" />
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_medium"
-                        android:text="1,400 Infected cases reported today"
-                        android:textColor="@android:color/black"
-                        android:textSize="14sp" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="1,400"
+                            android:id="@+id/today_reported_case"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text=" Infected cases reported today"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -121,16 +160,32 @@
                         android:textColor="@color/death_case"
                         android:textSize="20sp" />
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_medium"
-                        android:text="1,400 Infected cases reported today"
-                        android:textColor="@android:color/black"
-                        android:textSize="14sp" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:id="@+id/today_death_case"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text=" Death cases reported today"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -164,21 +219,22 @@
                         android:fontFamily="@font/roboto_medium"
                         android:text="Number of recovered patients"
                         android:textColor="@android:color/black"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
                 </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
         android:background="@drawable/rounded_rectangular_card"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
@@ -188,15 +244,15 @@
             android:layout_height="50dp"
             android:layout_marginStart="24dp"
             android:src="@drawable/ic_warning"
-            android:tint="@color/news"/>
+            android:tint="@color/news" />
 
         <TextView
-            android:layout_marginStart="24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:fontFamily="@font/roboto_medium"
             android:text="Report Self Quarantine"
             android:textColor="@android:color/black"
-            android:textSize="24sp"/>
+            android:textSize="24sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
