@@ -344,7 +344,7 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
                     title(covidCountry.get(i).getmCountryName())
                     .position(new LatLng(covidCountry.get(i).getmLat(), covidCountry.get(i).getmLan()))
                     .snippet(covidCountry.get(i).getmTotalCases() + "@" + covidCountry.get(i).getmTotalDeaths())
-                    .icon(bitmapDescriptorFromVector(getContext())));
+                    .icon(bitmapDescriptorFromVector(getContext(),R.drawable.ic_covid_virus_icon)));
             markers.add(marker);
 
             if (covidCountry.get(i).getmTotalCases() < 10000) {
@@ -371,7 +371,7 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
                     title(covidQuarinntines.get(i).getmDistrict())
                     .position(new LatLng(covidQuarinntines.get(i).getmLat(), covidQuarinntines.get(i).getmLan()))
                     .snippet(covidQuarinntines.get(i).getmCases() + "@" + "Total Cases")
-                    .icon(bitmapDescriptorFromVector(getContext())));
+                    .icon(bitmapDescriptorFromVector(getContext(),R.drawable.ic_quarantine)));
             quarintineMarkers.add(marker);
         }
 
@@ -489,8 +489,8 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
     }
 
 
-    private BitmapDescriptor bitmapDescriptorFromVector(Context context) {
-        Drawable background = ContextCompat.getDrawable(context, R.drawable.ic_covid_virus_icon);
+    private BitmapDescriptor bitmapDescriptorFromVector(Context context, int id) {
+        Drawable background = ContextCompat.getDrawable(context, id);
         background.setBounds(0, 0, background.getIntrinsicWidth(), background.getIntrinsicHeight());
 
 //        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorDrawableResourceId);

@@ -12,6 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 
 
 /**
@@ -24,6 +27,10 @@ public class NewsFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private ImageView news;
+
+    View mView;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -64,12 +71,18 @@ public class NewsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
+        mView = inflater.inflate(R.layout.fragment_news, container, false);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = ((AppCompatActivity) getActivity()).getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.rgb(200,25,19));
         }
-        return inflater.inflate(R.layout.fragment_news, container, false);
+//
+//        news=mView.findViewById(R.id.news1);
+//        Glide.with(getActivity())
+//                .load("https://smedia2.intoday.in/aajtak/images/stories/092019/china_a.jpg_1581302478_618x347.jpeg")
+//                .into(news);
+
+        return mView;
     }
 }
