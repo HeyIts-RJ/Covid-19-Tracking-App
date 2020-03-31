@@ -1,5 +1,7 @@
 package com.developer.android.covid_19;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +10,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 
 
 /**
@@ -62,6 +66,12 @@ public class DashboardFragment extends Fragment {
         // Inflate the layout for this fragment
         ((AppCompatActivity) getActivity()).getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_VISIBLE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = ((AppCompatActivity) getActivity()).getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.rgb(200,25,19));
+        }
 //        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         return inflater.inflate(R.layout.fragment_dashboard, container, false);
     }

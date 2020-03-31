@@ -27,6 +27,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
@@ -78,6 +79,11 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
     JSONArray jsonArray;
 
     SearchView searchView;
+
+    View support_view;
+
+    Animation animFadein;
+
 
     MarkerOptions markerOptions;
     List<Marker> markers = new ArrayList<Marker>();
@@ -139,7 +145,11 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
         realtimeHospitalFAB = (FloatingActionButton) mView.findViewById(R.id.realtime_hospital_on_map);
         realtimeQuarantineFAB = (FloatingActionButton) mView.findViewById(R.id.realtime_quarantine_on_map);
 
+        support_view=(View)mView.findViewById(R.id.support_layout);
+
         gpsLocationFAB = (FloatingActionButton) mView.findViewById(R.id.gps_locaton_fab);
+
+//        animFadein.setAnimationListener(getContext(),R.anim.fade_in);
 
         gpsLocationFAB.setColorFilter(Color.rgb(0, 128, 255));
 
@@ -158,6 +168,7 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
             public void onClick(View view) {
                 displayCovidWorldwideDataMarker();
                 hideQuarintineDataMarker();
+                support_view.setVisibility(View.INVISIBLE);
                 mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(2f));
             }
         });
@@ -168,10 +179,13 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
                 hideCovidWorldwideDataMarker();
                 displayQuarinitneDataMarker();
                 LatLng latLng=new LatLng(28.6141793,77.2022662);
+                support_view.setVisibility(View.VISIBLE);
                 mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 5f));
             }
         });
 
+
+        support_view.setVisibility(View.INVISIBLE);
 
         return mView;
     }

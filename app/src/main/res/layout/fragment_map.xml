@@ -27,6 +27,18 @@
         app:layout_constraintStart_toEndOf="@+id/maps_live_feed"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <include
+        android:id="@+id/support_layout"
+        layout="@layout/self_quarinitine_card"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_for_location_map" />
+
 
     <LinearLayout
         android:id="@+id/map_right_side_swipe"
