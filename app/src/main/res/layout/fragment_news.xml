@@ -53,6 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:src="@color/death_case"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -62,7 +63,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView">
+            app:layout_constraintTop_toBottomOf="@+id/news1">
 
             <TextView
                 android:layout_width="match_parent"

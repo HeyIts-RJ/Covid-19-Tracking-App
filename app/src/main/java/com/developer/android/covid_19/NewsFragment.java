@@ -77,11 +77,10 @@ public class NewsFragment extends Fragment {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.rgb(200,25,19));
         }
-//
-//        news=mView.findViewById(R.id.news1);
-//        Glide.with(getActivity())
-//                .load("https://smedia2.intoday.in/aajtak/images/stories/092019/china_a.jpg_1581302478_618x347.jpeg")
-//                .into(news);
+        news=mView.findViewById(R.id.news1);
+        Glide.with(getActivity())
+                .load("https://smedia2.intoday.in/aajtak/images/stories/092019/china_a.jpg_1581302478_618x347.jpeg")
+                .into(news);
 
         return mView;
     }
