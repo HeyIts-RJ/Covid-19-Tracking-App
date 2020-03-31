@@ -9,4 +9,9 @@
     <color name="news">#E6A919</color>
     <color name="user">#1199AA</color>
     <color name="bottom_nav_background">#fff</color>
+
+    <color name="reported_case">#00d43d</color>
+    <color name="death_case">#c81913</color>
+    <color name="recovery_case">#6cf7ec</color>
+
 </resources>

@@ -294,7 +294,10 @@ public class MapLiveFragment extends Fragment implements OnMapReadyCallback {
 
     private void mapPlotCovidMarker() {
 
+        mGoogleMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(this.getContext()));
+
 //        Log.d(TAG, "Map Wala:" + covidCountry.get(0).getmCountryName());
+
         for (int i = 0; i < covidCountry.size(); i++) {
             Marker marker = mGoogleMap.addMarker(markerOptions.
                     title(covidCountry.get(i).getmCountryName())
