@@ -5,6 +5,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
 //        if (Build.VERSION.SDK_INT < 16) {
 //            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -80,4 +86,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 }

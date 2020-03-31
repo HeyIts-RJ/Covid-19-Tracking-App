@@ -12,6 +12,7 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
         android:background="@color/death_case"
         android:paddingRight="30dp"
         android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
@@ -36,6 +37,7 @@
 
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
