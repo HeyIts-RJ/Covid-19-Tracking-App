@@ -28,7 +28,7 @@ public class NewsFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private ImageView news;
+    private ImageView news,news2,news3;
 
     View mView;
 
@@ -78,9 +78,20 @@ public class NewsFragment extends Fragment {
             window.setStatusBarColor(Color.rgb(37,97,238));
         }
         news=mView.findViewById(R.id.news1);
+        news2=mView.findViewById(R.id.news2);
+        news3=mView.findViewById(R.id.news3);
+
         Glide.with(getActivity())
                 .load("https://smedia2.intoday.in/aajtak/images/stories/092019/china_a.jpg_1581302478_618x347.jpeg")
                 .into(news);
+
+        Glide.with(getActivity())
+                .load("https://www.hindustantimes.com/rf/image_size_960x540/HT/p2/2020/05/06/Pictures/virus-outbreak-india_458c3ad6-8f24-11ea-8c4e-d383a7371370.jpg")
+                .into(news2);
+
+        Glide.with(getActivity())
+                .load("https://www.hindustantimes.com/rf/image_size_960x540/HT/p2/2020/04/27/Pictures/_986a2190-888b-11ea-804e-137f71f5151d.png")
+                .into(news3);
 
         return mView;
     }

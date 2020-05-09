@@ -14,5 +14,8 @@
     <color name="reported_case">#00d43d</color>
     <color name="death_case">#2561EE</color>
     <color name="recovery_case">#6cf7ec</color>
+    <color name="white">#FFF8F7</color>
+    <color name="black">#000000</color>
+    <color name="logo_primary_color">#6C63FF</color>
 
 </resources>

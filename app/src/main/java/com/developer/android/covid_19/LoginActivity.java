@@ -6,37 +6,31 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class SplashScreen extends AppCompatActivity {
+import com.google.android.material.button.MaterialButton;
+
+public class LoginActivity extends AppCompatActivity {
+    private MaterialButton loginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
-
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-
+        setContentView(R.layout.activity_login);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.rgb(227,227,227));
-
+            window.setStatusBarColor(getColor(R.color.logo_primary_color));
         }
 
-        new Handler().postDelayed(new Runnable() {
+        loginButton=findViewById(R.id.login_button);
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                Intent i=new Intent(SplashScreen.this,OnBoardScreen.class);
-                startActivity(i);
-
-                finish();
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this,MainActivity.class));
             }
-        },3000);
+        });
     }
 }
