@@ -75,7 +75,7 @@ public class NewsFragment extends Fragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = ((AppCompatActivity) getActivity()).getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.rgb(200,25,19));
+            window.setStatusBarColor(Color.rgb(37,97,238));
         }
         news=mView.findViewById(R.id.news1);
         Glide.with(getActivity())
